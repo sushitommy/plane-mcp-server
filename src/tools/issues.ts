@@ -6,6 +6,28 @@ import { Issue as IssueSchema } from "../schemas.js";
 
 export const registerIssueTools = (server: McpServer): void => {
   server.tool(
+    "list_project_issues",
+    "Get all issues for a specific project",
+    {
+      project_id: z.string().describe("The uuid identifier of the project to get issues for"),
+    },
+    async ({ project_id }) => {
+      const issues = await makePlaneRequest(
+        "GET",
+        `workspaces/${process.env.PLANE_WORKSPACE_SLUG}/projects/${project_id}/issues/`
+      );
+      return {
+        content: [
+          {
+            type: "text",
+            text: JSON.stringify(issues, null, 2),
+          },
+        ],
+      };
+    }
+  );
+
+  server.tool(
     "get_issue_using_readable_identifier",
     "Get all issues for a specific project. When issue identifier is provided something like FIRST-123, ABC-123, etc. For FIRST-123, project_identifier is FIRST and issue_identifier is 123",
     {

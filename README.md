@@ -143,6 +143,11 @@ This server unlocks all sorts of useful capabilities for anyone working with Pla
 
 ### Issues
 
+- `list_project_issues` 
+  - Get all issues for a specific project
+  - Parameters:
+    - `project_id` (string, required): UUID of the project 
+
 - `get_issue_using_readable_identifier` 
   - Get issue details using readable identifier (e.g., PROJ-123)
   - Parameters:
